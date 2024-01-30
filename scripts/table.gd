@@ -3,6 +3,7 @@ extends Node2D
 var card = preload("res://scene/card.tscn")
 var pad = 20
 var card_size = [0,0]
+var offset_pos = Vector2i()
 
 func create_table(table: Array[Array]):
 	var prevx_pos = 0
@@ -18,11 +19,20 @@ func create_table(table: Array[Array]):
 			ncard.position[1] += prevy_pos + pad
 			add_child(ncard)
 			ncard.intro()
+	var col_size = table.size()
+	var row_size = table[0].size()
+	col_size = ((card_size.y + pad) * col_size) / 2
+	row_size = ((card_size.x + pad) * row_size) / 2
+	offset_pos = Vector2i(row_size, col_size)
+	reposition_center()
+	get_tree().root.get_viewport().size_changed.connect(reposition_center)
 
-func clear_table():
-	for card in get_children():
-		remove_child(card)
-		card.queue_free()
+func reposition_center():
+	print("resize")
+	var r = get_tree().root.get_viewport().get_visible_rect()
+	var window_size = Vector2i(r.size)
+	window_size = window_size / 2
+	position = window_size - offset_pos
 
 func calc_size(rect_size: Vector2, scale: Vector2) -> Vector2:
 	return Vector2(rect_size[0]*scale[0], rect_size[1]*scale[1])
@@ -45,7 +55,7 @@ func is_already_revealed(index: int) -> bool:
 	return get_child(index).card.disable
 
 func reveal_card_on(index: int):
-	print(index, get_child_count())
+	print("reveal card ", index, ' ', get_child_count())
 	var card = get_child(index) as Area2D
 	card.card.reveal()
 

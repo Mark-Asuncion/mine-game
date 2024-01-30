@@ -9,17 +9,19 @@ var target: Vector2 = Vector2()
 var target_id = -1
 var timer = null
 @onready var rng = RandomNumberGenerator.new()
+var ctx: Node2D = null
 
 func choose_card(table: Node2D):
-	print("choosing target")
 	var size = table.get_child_count()-1
-	if size == -1:
+	print("choosing target ", size)
+	if size <= -1:
 		return
 	target_id = rng.randi_range(0, size)
 	while table.is_already_revealed(target_id):
 		target_id = rng.randi_range(0, size)
-	target = table.get_pos_card(target_id)
 	move = true
+	if ctx == null:
+		ctx = table
 
 func emit_click():
 	mouse_left_click.emit(target_id)
@@ -29,8 +31,9 @@ func emit_click():
 	timer = null
 
 func _process(delta):
-	print("move?", move)
+	print("move?", move, target_id)
 	if move:
+		target = ctx.get_pos_card(target_id)
 		var dist = target - position
 		#print(dist)
 		if absi(dist.x) == 0 and absi(dist.y) == 0:
@@ -39,5 +42,5 @@ func _process(delta):
 				timer.timeout.connect(emit_click)
 		else:
 			#print(clamp(dist[0], -5, 5), clamp(dist[1], -5, 5))
-			position.x += clamp(dist[0], -5, 5)
-			position.y += clamp(dist[1], -5, 5)
+			position.x += clamp(dist[0], -10, 10)
+			position.y += clamp(dist[1], -10, 10)

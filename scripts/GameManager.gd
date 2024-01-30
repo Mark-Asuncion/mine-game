@@ -19,6 +19,7 @@ func show_game_end_dialog(text: String):
 	bot_cursor.is_turn = false
 	bot_cursor.mouse = false
 	game_end_dialog.set_text(text)
+	await get_tree().create_timer(1).timeout
 	game_end_dialog.show()
 
 func new_game() -> Array[Array]:

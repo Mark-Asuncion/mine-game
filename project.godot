@@ -19,7 +19,8 @@ config/icon="res://img/icon.svg"
 
 window/size/viewport_width=800
 window/size/viewport_height=600
-window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 mouse_cursor/custom_image="res://img/pointer.png"
 
 [rendering]
