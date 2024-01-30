@@ -13,7 +13,7 @@ var ctx: Node2D = null
 
 func choose_card(table: Node2D):
 	var size = table.get_child_count()-1
-	print("choosing target ", size)
+	#print("choosing target ", size)
 	if size <= -1:
 		return
 	target_id = rng.randi_range(0, size)
@@ -31,8 +31,10 @@ func emit_click():
 	timer = null
 
 func _process(delta):
-	print("move?", move, target_id)
+	#print("move?", move, target_id)
 	if move:
+		while target_id >= ctx.get_child_count():
+			target_id -= 1
 		target = ctx.get_pos_card(target_id)
 		var dist = target - position
 		#print(dist)
@@ -44,3 +46,5 @@ func _process(delta):
 			#print(clamp(dist[0], -5, 5), clamp(dist[1], -5, 5))
 			position.x += clamp(dist[0], -10, 10)
 			position.y += clamp(dist[1], -10, 10)
+	elif not get_parent().is_player_turn and ctx != null:
+		choose_card(ctx)

@@ -77,6 +77,7 @@ func _on_table_reveal_card(is_bomb):
 	set_turn()
 
 func _on_mousebot_mouse_left_click(index):
+	print("bot click")
 	table.reveal_card_on(index)
 
 func _on_end_game_button_pressed():
