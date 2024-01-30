@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cixb0er30jkxs"]
+
+[ext_resource type="Texture2D" uid="uid://dfpfa7bgxf8ya" path="res://img/hb-full.png" id="1_sl6rw"]
+
+[node name="healthbarcontainer" type="HBoxContainer"]
+layout_direction = 3
+theme_override_constants/separation = 28
+
+[node name="healthbar" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_sl6rw")
+expand_mode = 2
+stretch_mode = 3
+flip_h = true
+
+[node name="healthbar2" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_sl6rw")
+expand_mode = 2
+stretch_mode = 3
+flip_h = true
+
+[node name="healthbar3" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_sl6rw")
+expand_mode = 2
+stretch_mode = 3
+flip_h = true

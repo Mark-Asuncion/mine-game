@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://ns7sjqtvmm48"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_c6jbu"]
+[ext_resource type="PackedScene" uid="uid://bxth56af63002" path="res://scene/bot_info.tscn" id="2_7pfi1"]
+[ext_resource type="PackedScene" uid="uid://s2jd4pf5w0bb" path="res://scene/table.tscn" id="3_i5hba"]
+[ext_resource type="PackedScene" uid="uid://cq5j80h2d3oix" path="res://scene/player_info.tscn" id="4_c5n1h"]
+[ext_resource type="Script" path="res://scripts/mouse-bot.gd" id="5_ygenp"]
+[ext_resource type="Script" path="res://scripts/mouse.gd" id="5_yrnwp"]
+[ext_resource type="Texture2D" uid="uid://b0ufjqhj5hy2b" path="res://img/pointer-bot.png" id="6_f20by"]
+[ext_resource type="PackedScene" uid="uid://cphd1rewsorsu" path="res://scene/end_game.tscn" id="8_wajpc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uyjve"]
+radius = 2.0
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_c6jbu")
+
+[node name="bg" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="bg"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="bot_info" parent="." instance=ExtResource("2_7pfi1")]
+metadata/name = "bot"
+
+[node name="player_info" parent="." instance=ExtResource("4_c5n1h")]
+metadata/name = "player"
+
+[node name="table" parent="." instance=ExtResource("3_i5hba")]
+position = Vector2(194, 81)
+
+[node name="mouse-bot" type="Area2D" parent="."]
+script = ExtResource("5_ygenp")
+metadata/mouse = true
+metadata/is_turn = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse-bot"]
+shape = SubResource("CircleShape2D_uyjve")
+
+[node name="Sprite2D" type="Sprite2D" parent="mouse-bot"]
+position = Vector2(10, 11)
+texture = ExtResource("6_f20by")
+
+[node name="mouse" type="Area2D" parent="."]
+script = ExtResource("5_yrnwp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse"]
+shape = SubResource("CircleShape2D_uyjve")
+
+[node name="end_game" parent="." instance=ExtResource("8_wajpc")]
+layer = 3
+visible = false
+
+[connection signal="dead" from="bot_info" to="." method="_on_player_dead"]
+[connection signal="dead" from="player_info" to="." method="_on_player_dead"]
+[connection signal="mouse_left_click" from="mouse-bot" to="." method="_on_mousebot_mouse_left_click"]
+[connection signal="button_pressed" from="end_game" to="." method="_on_end_game_button_pressed"]
