@@ -1,7 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://deegjb07mfwx6"]
+[gd_scene load_steps=6 format=3 uid="uid://dvh1bq0j5u1tk"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_2rcbl"]
 [ext_resource type="Texture2D" uid="uid://d2fed8iioh3im" path="res://img/nft_feel_free_to_ss.png" id="2_ptc2w"]
+
+[sub_resource type="GDScript" id="GDScript_rivde"]
+script/source = "extends CanvasLayer
+
+var game = preload(\"res://scene/game.tscn\")
+
+func _on_new_game_pressed():
+	get_tree().change_scene_to_file(\"res://scene/game.tscn\")
+
+func _on_exit_pressed():
+	get_tree().quit()
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x5nh"]
 bg_color = Color(0.74902, 0.74902, 0.74902, 1)
@@ -15,7 +26,7 @@ Button/styles/hover = SubResource("StyleBoxFlat_5x5nh")
 Button/styles/normal = SubResource("StyleBoxFlat_lwq3v")
 
 [node name="CanvasLayer" type="CanvasLayer"]
-script = ExtResource("1_2rcbl")
+script = SubResource("GDScript_rivde")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -2
