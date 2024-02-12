@@ -6,7 +6,6 @@ signal reveal_card(is_bomb: bool)
 @onready var anim_intro: AnimatedSprite2D = $card_intro
 @onready var select_indicator: AnimatedSprite2D = $select
 @onready var fire_emitter: GPUParticles2D = $fire
-@onready var frames_count = anim_flip.get_sprite_frames().get_frame_count("flip")
 @onready var sfx_flip: AudioStreamPlayer2D = $flip
 @onready var sfx_explode: AudioStreamPlayer2D = $explode
 var disable = false
